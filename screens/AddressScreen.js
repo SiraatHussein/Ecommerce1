@@ -53,7 +53,7 @@ const AddressScreen = () => {
 
         setTimeout(() => {
           navigation.goBack();
-        }, 500);
+        }, 200);
       })
       .catch((error) => {
         Alert.alert("Error", "Failed to add address");
