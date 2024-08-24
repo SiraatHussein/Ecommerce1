@@ -5,13 +5,6 @@ import productData from '../data/products.json';
 import { AntDesign } from "@expo/vector-icons";
 
 
-
-
-
-
-
-
-
 const PlatziStoreApi = ({ navigation }) => {
    const [userInput, setUserInput] = useState("")
   //  const [isLoading, setIsLoading] =useState(false)

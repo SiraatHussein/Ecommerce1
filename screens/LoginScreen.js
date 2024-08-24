@@ -96,7 +96,6 @@ const LoginScreen = () => {
               size={24}
               color="gray"
             />
-
             <TextInput
               value={email}
               onChangeText={(text) => setEmail(text)}

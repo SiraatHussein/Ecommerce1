@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -7,47 +7,42 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  FlatList,
+  Dimensions,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Dimensions } from "react-native";
 import { addToCart } from "../redux/CartReducer";
-import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 
 
-
-const ProductInfoScreen2 = ({route}) => {
-  const navigation = useNavigation();
-
+const ProductInfoScreen2 = ({ route }) => {
+  const { addToCart } = useContext(CartContext);
   
-  // const { width } = Dimensions.get("window");
-  // const navigation = useNavigation();
+    const handleAddToCart = () => {
+      const { product } = route.params;
+      addToCart(product);
+    };
+  
+  const handleBuyNow = () => {
+    // Implement your "Buy Now" logic here
+    console.log("Buying product:", product);
+  };
+  const { width } = Dimensions.get("window");
+  const height = (width * 100) / 100;
+  const navigation = useNavigation();
   const [addedToCart, setAddedToCart] = useState(false);
-  // const height = (width * 100) / 100;
   const dispatch = useDispatch();
-  const addItemToCart = (item) => {
+  const addItemToCart = (product) => {
     setAddedToCart(true);
-    dispatch(addToCart(item));
+    dispatch(addToCart(product));
     setTimeout(() => {
       setAddedToCart(false);
     }, 60000);
   };
   const cart = useSelector((state) => state.cart.cart);
   console.log(cart);
-  const { product } = route.params;
 
-
-  const handleAddToCart =() =>{
-    dispatch(addToCart(product));
-  }
-
-  const handleBuyNow = () => {
-    // Implement your "Buy Now" logic here
-    console.log("Buying product:", product);
-  };
-
+  
   return (
     <View>
       <View
@@ -74,6 +69,7 @@ const ProductInfoScreen2 = ({route}) => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        
           <Image
             source={{ uri: product.images[0] }}
             style={styles.productImage}
@@ -86,6 +82,7 @@ const ProductInfoScreen2 = ({route}) => {
             source={{ uri: product.images[2] }}
             style={styles.productImage}
           />
+
         </ScrollView>
         <View style={{marginBottom:230, marginLeft:20}}>
         <Text style={styles.productName}>{product.title}</Text>
@@ -153,29 +150,32 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   buyNowButton: {
-    marginTop: 10,
-    backgroundColor: "#FFAC1C",
-    height:50,
-    borderRadius: 20,
-    alignItems:"center",
-    padding:10,
-    width:350
+    padding: 10,
+          backgroundColor: "#FFAC1C",
+          borderRadius: 20,
+          justifyContent: "center",
+          alignItems: "center",
+          height:50,
+          width:350,
+          marginTop:20
   },
   buyNowText: {
-    color: "#fff",
+    color: "black",
     fontSize: 16,
     fontWeight: "bold",
   },
-  AddToCart: {
+  AddToCart:{
+    padding: 10,
     backgroundColor: "#FFC72C",
-    height:50,
-    alignItems:"center",
     borderRadius: 20,
-    padding:10,
-    width:350
+    justifyContent: "center",
+    alignItems: "center",
+    height:50,
+    width:350,
+   
   },
   AddToCartText: {
-    color: "#fff",
+    color: "black",
     fontSize: 16,
     fontWeight: "bold",
   },

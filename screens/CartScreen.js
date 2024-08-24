@@ -33,7 +33,7 @@ const CartScreen = () => {
   const deleteItem = (item) => {
     dispatch(removeFromCart(item));
   };
-  
+
   const navigation = useNavigation();
   console.log(total);
   return (
@@ -141,7 +141,7 @@ const CartScreen = () => {
                   <AntDesign name="minus" size={24} color="black" />
                 </Pressable>
 
-<Pressable
+                <Pressable
                   style={{
                     backgroundColor: "white",
                     paddingHorizontal: 18,
@@ -187,4 +187,3 @@ const CartScreen = () => {
 export default CartScreen;
 
 const styles = StyleSheet.create({});
-

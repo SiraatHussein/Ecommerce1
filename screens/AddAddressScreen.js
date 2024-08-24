@@ -68,8 +68,17 @@ const AddAddressScreen = () => {
             size={22}
             color="black"
           />
-          <TextInput />
+          <TextInput placeholder="Search Amazon.in" />
         </Pressable>
+       
+        <Pressable onPress={() => navigation.navigate("Cart")}>
+              <AntDesign
+                name="shoppingcart"
+                size={24}
+                color="white"
+                style={{ marginLeft: 20 }}
+              />
+            </Pressable>
       </View>
 
       <View style={{ padding: 10 }}>

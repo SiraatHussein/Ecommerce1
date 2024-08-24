@@ -15,7 +15,7 @@ const HelpScreen = ({navigation}) => {
       <View style={{marginTop:20, marginLeft:14}}>
         <Text style={{color:"grey", fontSize:12, fontWeight:"500"}}>ABOUT JUMIA</Text>
       </View>
-      <View style={{backgroundColor:'white',height:180, marginTop:6}}>
+      <View style={{backgroundColor:'white',height:180, marginTop:6}}> 
         <Text style={{marginLeft:14,marginTop:20,fontWeight:"500", fontSize:15 }} onPress={()=>navigation.navigate("Services")}>Jumia Services</Text>
         <Text style={{marginLeft:14,marginTop:45,fontWeight:"500", fontSize:15 }} onPress={()=>navigation.navigate("Privacy")} >Privacy Policy</Text>
         <Text onPress={()=>navigation.navigate("Faq")} style={{marginLeft:14,marginTop:40,fontWeight:"500", fontSize:15 }}>Faq</Text>
