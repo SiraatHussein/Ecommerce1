@@ -58,10 +58,10 @@ const LoginScreen = () => {
       style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}
     >
       <View>
-        {/* <Image
-          source={require("../assets/tucee.png")}
-          style={{ width: 205, height: 130, marginTop: 10 }}
-        /> */}
+      <Image
+        source={{ uri: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Flogos-world.net%2Fjumia-logo%2F&psig=AOvVaw1uQyRPs91j7MLtS79NVVkS&ust=1724852914032000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMDR846nlYgDFQAAAAAdAAAAABAJ' }}
+        style={styles.image}
+      />
       </View>
 
       <KeyboardAvoidingView >

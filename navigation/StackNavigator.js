@@ -19,12 +19,16 @@ import ConfirmationScreen from "../screens/ConfirmationScreen";
 import PlatziStoreApi from "../screens/PlatziStoreApi";
 import HelpScreen from "../screens/HelpScreen";
 import ProductInfoScreen2 from "../screens/ProductInfoScreen2";
-import FaqScreen from "../screens/FaqScreen"
+import FaqScreen from "../screens/FaqScreen";
 import OrderScreen from "../screens/OrderScreen";
 import OrderScreen2 from "../screens/OrderScreen2";
 import Services from "../components/Services";
 import Privacy from "../components/Privacy";
 import Country from "../components/Country";
+import BlackCScreen from "../solutionScreens/BlackCScreen";
+import GreyCScreen from "../solutionScreens/GreyCScreen";
+import RedCScreen from "../solutionScreens/RedCScreen";
+import WhiteCScreen from "../solutionScreens/WhiteCScreen";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -52,13 +56,13 @@ const StackNavigator = () => {
           name="Profile"
           component={ProfileScreen}
           options={{
-            headerShown:true,
-            headerTitle:"Account",
-            headerTintColor:"white",
-            headerStyle:{backgroundColor:"#262624"},
+            headerShown: true,
+            headerTitle: "Account",
+            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#262624" },
             tabBarLabel: "Profile",
             tabBarLabelStyle: { color: "black" },
-            headerTitleAlign:"center",
+            headerTitleAlign: "center",
             headerRight: () => (
               <View
                 style={{
@@ -68,11 +72,11 @@ const StackNavigator = () => {
                   marginRight: 12,
                 }}
               >
-                <AntDesign  name="shoppingcart" size={24} color="white" />
+                <AntDesign name="shoppingcart" size={24} color="white" />
                 <AntDesign name="search1" size={24} color="white" />
               </View>
-       ),
-            
+            ),
+
             tabBarIcon: ({ focused }) =>
               focused ? (
                 <Ionicons name="person" size={24} color="#f07b07" />
@@ -86,11 +90,11 @@ const StackNavigator = () => {
           name="Cart"
           component={CartScreen}
           options={{
-            headerShown:true,
-            headerTitle:"Cart",
-            headerTitleAlign:"center",
-            headerTintColor:"white",
-            headerStyle:{backgroundColor:"#262624"},
+            headerShown: true,
+            headerTitle: "Cart",
+            headerTitleAlign: "center",
+            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#262624" },
             tabBarLabel: "Cart",
             tabBarLabelStyle: { color: "black" },
             tabBarIcon: ({ focused }) =>
@@ -99,20 +103,20 @@ const StackNavigator = () => {
               ) : (
                 <AntDesign name="shoppingcart" size={24} color="black" />
               ),
-              }}
+          }}
         />
         <Tab.Screen
           name="Shop"
           component={PlatziStoreApi}
           options={{
-            headerShown:false,
-            headerTitle:"Shop",
-            headerTitleAlign:"center",
-            headerTintColor:"white",
-            headerStyle:{backgroundColor:"#262624"},
+            headerShown: false,
+            headerTitle: "Shop",
+            headerTitleAlign: "center",
+            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#262624" },
             tabBarLabel: "Shop",
             tabBarLabelStyle: { color: "black" },
-            headerTitleAlign:"center",
+            headerTitleAlign: "center",
             headerRight: () => (
               <View
                 style={{
@@ -123,10 +127,10 @@ const StackNavigator = () => {
                 }}
               >
                 <AntDesign name="shoppingcart" size={24} color="white" />
-      
+
                 <AntDesign name="search1" size={24} color="white" />
               </View>
-       ),
+            ),
             tabBarIcon: ({ focused }) =>
               focused ? (
                 <Entypo name="shop" size={24} color="#f07b07" />
@@ -139,13 +143,13 @@ const StackNavigator = () => {
           name="Help"
           component={HelpScreen}
           options={{
-            headerShown:true,
-            headerTitle:"Help",
-            headerTintColor:"white",
-            headerStyle:{backgroundColor:"#262624"},
+            headerShown: true,
+            headerTitle: "Help",
+            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#262624" },
             tabBarLabel: "Help",
             tabBarLabelStyle: { color: "black" },
-            headerTitleAlign:"center",
+            headerTitleAlign: "center",
             headerRight: () => (
               <View
                 style={{
@@ -156,10 +160,10 @@ const StackNavigator = () => {
                 }}
               >
                 <AntDesign name="shoppingcart" size={24} color="white" />
-      
+
                 <AntDesign name="search1" size={24} color="white" />
               </View>
-       ),
+            ),
             tabBarIcon: ({ focused }) =>
               focused ? (
                 <Entypo name="help-with-circle" size={24} color="#f07b07" />
@@ -174,7 +178,7 @@ const StackNavigator = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator  >
         <Stack.Screen
           name="Login"
           component={LoginScreen}
@@ -185,7 +189,7 @@ const StackNavigator = () => {
           component={RegisterScreen}
           options={{ headerShown: false }}
         />
-        
+
         <Stack.Screen
           name="Main"
           component={BottomTabs}
@@ -201,7 +205,7 @@ const StackNavigator = () => {
           component={Country}
           options={{ headerShown: false }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Privacy"
           component={Privacy}
           options={{ headerShown: false }}
@@ -224,13 +228,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Info2"
           component={ProductInfoScreen2}
-          options={{ 
-            headerShown:false,
-            headerTitle:"Details",
-            headerTintColor:"white",
-            headerStyle:{backgroundColor:"#262624"}
-            
-
+          options={{
+            headerShown: false,
+            headerTitle: "Details",
+            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#262624" },
           }}
         />
         <Stack.Screen
@@ -248,80 +250,100 @@ const StackNavigator = () => {
           component={CameraScreen}
           options={{ headerShown: false }}
         />
-          <Stack.Screen
+        <Stack.Screen
           name="Confirm"
           component={ConfirmationScreen}
           options={{ headerShown: false }}
-        />  
+        />
         <Stack.Screen
           name="PlatziStore"
           component={PlatziStoreApi}
-          options={{ 
-            headerShown:true,
-            headerTitle:"Details",
-            headerTintColor:"white",
-            headerStyle:{backgroundColor:"#262624"}
+          options={{
+            headerShown: true,
+            headerTitle: "Details",
+            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#262624" },
           }}
         />
         <Stack.Screen
           name="Profile"
           component={ProfileScreen}
-          options={{ 
-            headerShown:false,
-            headerTitle:"Details",
-            headerTintColor:"white",
-            headerStyle:{backgroundColor:"#262624"}
+          options={{
+            headerShown: false,
+            headerTitle: "Details",
+            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#262624" },
           }}
         />
         <Stack.Screen
-        name="Help"
-        component={HelpScreen}
-        options={{ 
-          headerShown:true,
-          headerTitle:"Details",
-          headerTintColor:"white",
-          headerStyle:{backgroundColor:"#262624"}
-        }}
-      />
+          name="Help"
+          component={HelpScreen}
+          options={{
+            headerShown: true,
+            headerTitle: "Details",
+            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#262624" },
+          }}
+        />
 
-<Stack.Screen
-        name="Order"
-        component={OrderScreen}
-        options={{ 
-          headerShown:true,
-          headerTitle:"Order",
-          headerTintColor:"white",
-          headerStyle:{backgroundColor:"#262624"}
-        }}
-      />
+        <Stack.Screen
+          name="Order"
+          component={OrderScreen}
+          options={{
+            headerShown: true,
+            headerTitle: "Order",
+            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#262624" },
+          }}
+        />
 
-<Stack.Screen
-        name="Order2"
-        component={OrderScreen2}
-        options={{ 
-          headerShown:true,
-          headerTitle:"Orders",
-          headerTitleAlign:"center",
-          headerTintColor:"white",
-          headerStyle:{backgroundColor:"#262624"},
-          headerRight: () => (
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 12,
-                marginRight: 12,
-              }}
-            >
-              
-              <AntDesign  name="shoppingcart" size={24} color="white" />
-              <AntDesign name="search1" size={24} color="white" />
-            </View>
-     ),
-        }}
-      />
+        <Stack.Screen
+          name="Order2"
+          component={OrderScreen2}
+          options={{
+            headerShown: true,
+            headerTitle: "Orders",
+            headerTitleAlign: "center",
+            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#262624" },
+            headerRight: () => (
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 12,
+                  marginRight: 12,
+                }}
+              >
+                <AntDesign name="shoppingcart" size={24} color="white" />
+                <AntDesign name="search1" size={24} color="white" />
+              </View>
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="BlackC"
+          component={BlackCScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="GreyC"
+          component={GreyCScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RedC"
+          component={RedCScreen}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="WhiteC"
+          component={WhiteCScreen}
+          options={{ headerShown: false }}
+        />
+
+        
       </Stack.Navigator>
-      
     </NavigationContainer>
   );
 };

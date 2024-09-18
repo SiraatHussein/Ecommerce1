@@ -58,7 +58,7 @@ const RegisterScreen = () => {
         <Image
           style={{ width: 150, height: 100 }}
           source={{
-            uri: "https://assets.stickpng.com/thumbs/6160562276000b00045a7d97.png",
+            uri: "https://www.google.com/url?sa=i&url=https%3A%2F%2Flogos-world.net%2Fjumia-logo%2F&psig=AOvVaw1uQyRPs91j7MLtS79NVVkS&ust=1724852914032000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMDR846nlYgDFQAAAAAdAAAAABAJ",
           }}
         />
       </View>

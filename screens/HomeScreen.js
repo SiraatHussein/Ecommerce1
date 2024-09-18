@@ -22,6 +22,7 @@ import { BottomModal, ModalContent, SlideAnimation } from "react-native-modals";
 import { Entypo } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext, UserType } from "../UserContext";
+import jwt_decode from "jwt-decode";
 
 const HomeScreen = () => {
   const list = [
@@ -205,12 +206,15 @@ const HomeScreen = () => {
   const [addresses, setAddresses] = useState([]);
   const [category, setCategory] = useState("jewelery");
   const { userId, setUserId } = UserContext(UserType);
+  const [newAddress, setNewAddress] = useState(null);
+  const [selectedAddress, setSelectedAdress] = useState("");
   const [items, setItems] = useState([
     { label: "Men's clothing", value: "men's clothing" },
     { label: "jewelery", value: "jewelery" },
     { label: "electronics", value: "electronics" },
     { label: "women's clothing", value: "women's clothing" },
   ]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -232,22 +236,15 @@ const HomeScreen = () => {
 
 
   useEffect(() => {
-    if (userId) {
-      fetchAddresses();
-    }
-  }, [userId, modalVisible]);
-  const fetchAddresses = async () => {
-    try {
-      const response = await axios.get(
-        `http://172.20.10.7:8081/addresses/${userId}`
-      );
-      const { addresses } = response.data;
+    const fetchNewAddress = async () => {
+      const savedAddress = await AsyncStorage.getItem("newAddress");
+      if (savedAddress) {
+        setNewAddress(JSON.parse(savedAddress));
+      }
+    };
 
-      setAddresses(addresses);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+    fetchNewAddress();
+  }, []);
   useEffect(() => {
     const fetchUser = async () => {
       const token = await AsyncStorage.getItem("authToken");
@@ -259,7 +256,6 @@ const HomeScreen = () => {
     fetchUser();
   }, []);
   console.log("address", addresses);
-  
   return (
     <>
       <SafeAreaView
@@ -335,14 +331,21 @@ const HomeScreen = () => {
           >
             <Ionicons name="location-outline" size={24} color="black" />
 
-            <Pressable onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={{ fontSize: 16, fontWeight: "500" }}>
-                Deliver to Ayan -Kumasi-705636
-              </Text>
+            <Pressable>
+            {newAddress ? (
+        <View>
+          <Text>Deliver to {newAddress.name} - {newAddress.street}</Text>
+        </View>
+      ) : (
+        <View>
+          <Text>No new address added yet.</Text>
+        </View>
+      )}
             </Pressable>
 
             <MaterialIcons name="keyboard-arrow-down" size={24} color="black" />
           </Pressable>
+
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {list.map((item, index) => (
               <Pressable

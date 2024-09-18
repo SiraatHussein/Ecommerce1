@@ -2,44 +2,51 @@ import {
   StyleSheet,
   Text,
   Pressable,
-  TextInput,
   View,
   ScrollView,
+  TextInput,
 } from "react-native";
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { UserType } from "../UserContext";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AntDesign } from "@expo/vector-icons";
 
 const AddAddressScreen = () => {
   const navigation = useNavigation();
   const [addresses, setAddresses] = useState([]);
-  const { userId, setUserId } = useContext(UserType);
-  console.log("userId", userId)
-  useEffect(() => {
-    fetchAddresses();
-  }, []);
+  const { userId } = useContext(UserType);
+
   const fetchAddresses = async () => {
     try {
-      const response = await axios.get(
-        `http://172.20.10.7:8081/addresses/${userId}`
-      );
+      const response = await axios.get(`http://172.20.10.7:8081/addresses/${userId}`);
       const { addresses } = response.data;
-    
       setAddresses(addresses);
     } catch (error) {
       console.log("error", error);
     }
   };
-  //refresh addresses when we navigate back
+
   useFocusEffect(
     useCallback(() => {
       fetchAddresses();
-    },[])
-  )
-  console.log("addresses", addresses);
+    }, [])
+  );
+
+  const [newAddress, setNewAddress] = useState(null);
+
+  useEffect(() => {
+    const fetchNewAddress = async () => {
+      const savedAddress = await AsyncStorage.getItem("newAddress");
+      if (savedAddress) {
+        setNewAddress(JSON.parse(savedAddress));
+      }
+    };
+    fetchNewAddress();
+  }, []);
+
   return (
     <ScrollView showVerticalScrollIndicator={false} style={{ marginTop: 50 }}>
       <View
@@ -68,7 +75,7 @@ const AddAddressScreen = () => {
             size={22}
             color="black"
           />
-          <TextInput placeholder="Search Amazon.in" />
+          <TextInput placeholder="Search " />
         </Pressable>
        
         <Pressable onPress={() => navigation.navigate("Cart")}>
@@ -81,67 +88,38 @@ const AddAddressScreen = () => {
             </Pressable>
       </View>
 
-      <View style={{ padding: 10 }}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-          Your Addresses{" "}
-        </Text>
-        <Pressable
+      <Pressable
           onPress={() => navigation.navigate("Add")}
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItem: "center",
-            marginTop: 10,
-            borderWidth: 1,
-            borderColor: "#DODODO",
-            borderLeftWidth: 0,
-            borderRightWidth: 0,
-            paddingVertical: 7,
-            paddingHorizontal: 5,
-          }}
+          style={styles.addButton}
         >
           <Text>Add a New Address</Text>
           <MaterialIcons name="keyboard-arrow-right" size={24} color="black" />
         </Pressable>
 
-        <Pressable>
-          {/* all the added addresses */}
-          {addresses?.map((item, index) => (
-            <Pressable
-              style={{
-                borderWidth: 1,
-                borderColor: "#D0D0D0",
-                padding: 10,
-                flexDirection: "column",
-                gap: 5,
-                marginVertical: 10,
-              }}
-            >
-              <View
-                style={{ flexDirection: "row", alignItems: "center", gap: 3 }}
-              >
-                <Text style={{ fontSize: 15, fontWeight: "bold" }}>
-                  {item?.name}
-                </Text>
-                <Entypo name="location-pin" size={24} color="red" />
-              </View>
+      <View style={{ padding: 10, marginTop: 20 }}>
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Your Addresses</Text>
+        {addresses?.map((address, index) => (
+          <View key={index} style={styles.addressContainer}>
+            <Text>Name: {address.name}</Text>
+            <Text>Mobile No: {address.mobileNo}</Text>
+            <Text>House No: {address.houseNo}</Text>
+            <Text>Street: {address.street}</Text>
+            <Text>Postal Code: {address.postalCode}</Text>
+          </View>
+        ))}
 
-              <Text style={{ fontSize: 15, color: "#181818" }}>
-                {item?.houseNo}
-              </Text>
+        {newAddress && (
+          <View style={styles.addressContainer}>
+            <Text>New Address:</Text>
+            <Text>Name: {newAddress.name}</Text>
+            <Text>Mobile No: {newAddress.mobileNo}</Text>
+            <Text>House No: {newAddress.houseNo}</Text>
+            <Text>Street: {newAddress.street}</Text>
+            <Text>Postal Code: {newAddress.postalCode}</Text>
+          </View>
+        )}
 
-              <Text style={{ fontSize: 15, color: "#181818" }}>
-                {item?.street}
-              </Text>
-
-              <Text style={{ fontSize: 15, color: "#181818" }}>
-                mobile No : {item?.mobileNo}
-              </Text>
-              <Text style={{ fontSize: 15, color: "#181818" }}>
-                postal code : {item?.postalCode}
-              </Text>
-
-              <View
+<View
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -188,14 +166,32 @@ const AddAddressScreen = () => {
                   <Text>Set as Default</Text>
                 </Pressable>
               </View>
-            </Pressable>
-          ))}
-          </Pressable>
+        
       </View>
     </ScrollView>
+      
   );
 };
 
-export default AddAddressScreen;
+const styles = StyleSheet.create({
+  addressContainer: {
+    borderWidth: 1,
+    borderColor: "#DODODO",
+    marginVertical: 10,
+    padding: 10,
+  },
+  addButton: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+    borderWidth: 1,
+    borderColor: "#DODODO",
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    paddingVertical: 7,
+    paddingHorizontal: 5,
+  },
+});
 
-const styles = StyleSheet.create({});
+export default AddAddressScreen;
